@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess The Number</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css'>
+    <script src="vue.js"></script>
+    <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            height: 50px;
+            width: 100%;
+            background-color: #303036;
+            color: white;
+            text-align: center;
+        }
+        
+        .index {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            /* bring your own prefixes */
+            transform: translate(-50%, -120%);
+        }
+        
+        #false {
+            margin-top: 10%;
+            margin-right: 40%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="index">
+            <h1> <strong>You have {{ chance }} chance remaining</strong> </h1>
+            <div class="field has-addons">
+                <div class="control">
+                    <input class="input" type="number" v-model="angka" name="angka" placeholder="Enter your number" :disabled="validated == 0">
+                </div>
+                <div class="control">
+                    <button class="button is-success" @click="check(angka,number)" :disabled="validated == 0">
+                            Guess
+                    </button>
+                    <br><br>
+                </div>
+
+                <div id="false" v-show="validated ==0 && chance!=0 && benar ==0">
+                    <h1>Maaf anda salah</h1>
+                    <h2>Anda masih memiliki {{ chance }} kesempatan</h2>
+                    <button @click="validate()">Coba lagi</button>
+                </div>
+
+
+                <div id="false" v-show="benar ==1">
+                    <h1>ANDA MENANG !</h1>
+                    <a class="button is-success" href="game.html">Main Lagi</a>
+
+                    <a class="button is-danger" href="index.html">Keluar</a>
+                </div>
+                <div v-show="chance ==0">
+                    <h1>Anda kalah?</h1>
+                    <a class="button is-success" href="game.html">Main Lagi</a>
+
+                    <a class="button is-danger" href="index.html">Keluar</a>
+
+                </div>
+            </div>
+
+
+            <p> {{ number }}</p>
+        </div>
+
+        <div class="footer ">
+            <div>
+                <h2>{{ mhs.nama }} | {{ mhs.NPM }} | {{ mhs.Kelas }}</h2>
+            </div>
+            <div>
+                &copy; Copyright Evan Samuel Wiyendra
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                angka: "",
+                number: Math.floor(Math.random() * 10) + 1,
+                chance: 3,
+                validated: 1,
+                benar: "",
+                mhs: {
+                    nama: "Evan Samuel Wiyendra",
+                    NPM: "180709681",
+                    Kelas: "D",
+                }
+
+            },
+
+            methods: {
+
+                check(angka, number) {
+                    if (this.chance == 1) {
+                        alert("You lose!");
+                        this.chance--;
+                        this.angka = "";
+                        this.validated = 0;
+
+
+                    } else {
+                        if (angka == number) {
+                            this.angka = "";
+                            alert("You won!");
+                            this.validated = 0;
+                            this.benar = 1;
+
+                        } else {
+                            this.chance--;
+                            this.angka = "";
+                            this.validated = 0;
+                            alert("Kesempatan anda berkurang 1");
+
+                        }
+                    }
+
+                },
+                validate() {
+                    this.validated = 1;
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>
