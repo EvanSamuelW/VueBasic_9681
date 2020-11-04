@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css'>
+    <script src="vue.js"></script>
+    <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            height: 50px;
+            width: 100%;
+            background-color: #303036;
+            color: white;
+            text-align: center;
+        }
+        
+        .index {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            /* bring your own prefixes */
+            transform: translate(-50%, -120%);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="index">
+            <h1 style="font-size: xx-large;"> <strong> GUESS NUMBER 1-10</strong></h1>
+            <h2>YOU HAVE 3 CHANCE</h2>
+            <a class="button is-success" href="game.html"> Start </a>
+        </div>
+
+
+        <div class="footer ">
+            <h2>{{ mhs.nama }} | {{ mhs.NPM }} | {{ mhs.Kelas }}</h2>
+            <div>
+                &copy; Copyright Evan Samuel Wiyendra
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                mhs: {
+                    nama: "Evan Samuel Wiyendra",
+                    NPM: "180709681",
+                    Kelas: "D",
+                }
+            },
+            methods: {
+
+            },
+        });
+    </script>
+</body>
+
+
+</html>
