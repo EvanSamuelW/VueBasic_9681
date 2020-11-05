@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css'>
+    <script src="vue.js"></script>
+    <style>
+        .center {
+            margin: auto;
+            width: 40%;
+            padding: 10px;
+            border-radius: 20px;
+        }
+        
+        form {
+            margin: auto;
+            margin-bottom: 10%;
+            width: 70%;
+        }
+        
+        #item {
+            height: fit-content;
+            margin: auto;
+            width: 60%;
+            margin-top: 10px;
+        }
+        
+        body {
+            margin: auto;
+            text-align: center;
+            background-color: #0093E9;
+            background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+            padding-bottom: 35%;
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <div class="container">
+
+        <div id="app">
+            <div class="center" style="background-color: #f0efe9;">
+                <form style="text-align: left;">
+                    <h1 style="margin: auto; margin-bottom: 20px;"><strong>TODO LIST APP WITH VUE</strong></h1>
+
+                    <label for="newTodoText">Apa yang mau kamu kerjakan?</label>
+                    <input class="input" type="text" v-model="newTodoText" name="newTodoText" id="new-todo" placeholder="Enter your task">
+                    <br>
+                    <label for="newTodoKepentingan">Penting gak?</label><br>
+                    <div class="select">
+                        <select id="kepentingan" v-model="newTodoKepentingan" name="newTodoKepentingan">
+                            <option value="is-danger">Penting</option>
+                            <option value="is-link">Biasa</option>
+                            <option value="is-success">Tidak Penting</option>
+                          </select>
+
+                    </div>
+                    <br>
+                    <label for="newTodoNote">Ada Catatan Penting?</label>
+                    <textarea class="textarea" type="text" v-model="newTodoNote" name="newTodoNote" placeholder="Enter note"></textarea>
+
+                    <a style="margin-top: 10px;" class="button is-success" @click="add">
+                                Add
+                              </a>
+
+                    <a style="margin-top: 10px;" class="button is-dark" @click="reset">
+                                Reset
+                              </a>
+
+                </form>
+
+
+
+                <div id="item" v-for="todo in todos">
+                    <article class="message " v-bind:class="todo.kepentingan">
+                        <div class="message-header">
+                            <p v-show="todo.kepentingan =='is-success'">Tidak Penting</p>
+                            <p v-show="todo.kepentingan =='is-link'">Biasa</p>
+                            <p v-show="todo.kepentingan =='is-danger'">Penting</p>
+
+                            <button class="delete " aria-label="delete" @click="remove(todo)"></button>
+                        </div>
+                        <div class="message-body ">
+                            <h1 style="font-size: xx-large;"><strong>{{ todo.nama }}</strong></h1>
+                            <br>
+                            <h4>{{ todo.note }}</h4>
+
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+
+            <div style="margin-top: 5%; position: relative;">
+                <h2>{{ mhs.nama }} | {{ mhs.NPM }} | {{ mhs.Kelas }}</h2>
+            </div>
+            <div>
+                &copy; Copyright Evan Samuel Wiyendra
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+    </div>
+
+
+
+    <script>
+        new Vue({
+            el: "#app ",
+            data: {
+                newTodoText: '',
+                todos: [],
+                newTodoNote: '',
+                newTodoKepentingan: '',
+                mhs: {
+                    nama: "Evan Samuel Wiyendra",
+                    NPM: "180709681",
+                    Kelas: "D",
+                }
+            },
+
+
+            methods: {
+                add() {
+                    this.todos.push({
+                        nama: this.newTodoText,
+                        note: this.newTodoNote,
+                        kepentingan: this.newTodoKepentingan
+                    })
+                    this.newTodoText = ''
+                    this.newTodoNote = ''
+                    this.newTodoKepentingan = ''
+                },
+                remove(todo) {
+                    const index = this.todos.indexOf(todo);
+                    this.todos.splice(index, 1);
+
+                },
+                reset() {
+                    this.newTodoText = ''
+                    this.newTodoNote = ''
+                    this.newTodoKepentingan = ''
+                }
+
+            }
+
+        })
+    </script>
+</body>
+
+</html>
